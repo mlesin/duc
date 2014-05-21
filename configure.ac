@@ -33,7 +33,7 @@ AC_SYS_LONG_FILE_NAMES
 
 # Checks for programs.
 AC_PROG_CC
-AC_PROG_LIBTOOL
+#AC_PROG_LIBTOOL
 
 # Initialize libtool, but disable static libs for now
 AM_DISABLE_STATIC
@@ -79,9 +79,9 @@ AC_CHECK_HEADERS([fcntl.h limits.h stdint.h stdlib.h string.h sys/ioctl.h unistd
 AC_TYPE_MODE_T
 AC_TYPE_OFF_T
 AC_TYPE_SIZE_T
-AC_TYPE_UINT32_T
-AC_TYPE_UINT64_T
-AC_TYPE_UINT8_T
+#AC_TYPE_UINT32_T
+#AC_TYPE_UINT64_T
+#AC_TYPE_UINT8_T
 
 # Checks for library functions.
 AC_FUNC_LSTAT_FOLLOWS_SLASHED_SYMLINK
