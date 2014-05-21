@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <time.h>
+#include <sys/time.h>
 #include <assert.h>
 #include <unistd.h>
 #include <libgen.h>
@@ -114,6 +115,7 @@ static char *find_xy(duc *duc, int x, int y)
 
 static void do_index(duc *duc)
 {
+  struct timeval start,stop;
 
 	printf(
 		"Content-Type: text/html\n"
@@ -192,9 +194,14 @@ static void do_index(duc *duc)
 
 	if(path) {
 		printf("<a href='%s?cmd=index&path=%s&'>", script, path);
+		gettimeofday(&start, NULL);
 		printf("<img src='%s?cmd=image&path=%s' ismap='ismap'>\n", script, path);
+		gettimeofday(&stop, NULL);
 		printf("</a><br>");
-		printf("<b>%s</b><br>", path);
+		printf("<b>%s</b><br>\n", path);
+		char human[40];
+		duc_fmttime(human,start,stop);
+		printf("Generated in %s.<br>\n",human);
 	}
 	fflush(stdout);
 }
