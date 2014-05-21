@@ -28,23 +28,26 @@ void duc_del(duc *duc)
 	free(duc);
 }
 
-
-int duc_open(duc *duc, const char *path_db, duc_open_flags flags)
+char *duc_pick_db_path(const char *path_db) 
 {
-	char tmp[PATH_MAX];
+  char *tmp;
+  tmp = strndup(path_db, PATH_MAX);
 
-	if(path_db == NULL) {
-		path_db = getenv("DUC_DATABASE");
+	if(tmp == NULL) {
+		tmp = getenv("DUC_DATABASE");
 	}
 
-	if(path_db == NULL) {
+	if(tmp == NULL) {
 		char *home = getenv("HOME");
 		if(home) {
 			snprintf(tmp, sizeof tmp, "%s/.duc.db", home);
-			path_db = tmp;
 		}
 	}
-	
+  return(tmp);
+}
+
+int duc_open(duc *duc, const char *path_db, duc_open_flags flags)
+{
 	if(path_db == NULL) {
 		duc->err = DUC_E_DB_NOT_FOUND;
 		return -1;
